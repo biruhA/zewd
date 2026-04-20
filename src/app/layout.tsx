@@ -20,7 +20,8 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: "THE ATELIER | High-End Luxury Diamonds & Jewelry",
-  description: "A destination for those who seek the extraordinary. Curating timeless brilliance since 1924.",
+  description:
+    "A destination for those who seek the extraordinary. Curating timeless brilliance since 1924.",
 };
 
 export default function RootLayout({
@@ -31,12 +32,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap"
+        />
       </head>
       <body
         className={`${notoSerif.variable} ${manrope.variable} antialiased selection:bg-primary-container-custom selection:text-on-primary-container`}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
           <TopNavBar />
           {children}
           <Footer />

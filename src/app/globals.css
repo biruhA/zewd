@@ -63,9 +63,27 @@
     background-color: var(--color-background-custom);
     color: var(--color-on-surface);
     font-family: var(--font-body);
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headline);
+  }
+
+  .dark {
+    --color-background-custom: #0a1d2d;
+    --color-on-background: #f7f9ff;
+    --color-surface: #0a1d2d;
+    --color-on-surface: #f7f9ff;
+    --color-surface-container: #162a3d;
+    --color-surface-container-low: #112335;
+    --color-surface-container-high: #1c3145;
+    --color-surface-container-highest: #23384c;
+    --color-primary-custom: #e2c197;
+    --color-on-primary: #291800;
+    --color-outline-variant: #4e453c;
+    --color-on-surface-variant: #d1c4b8;
+    --color-surface-bright: #1c3145;
+    --color-surface-dim: #071521;
   }
 }
 
