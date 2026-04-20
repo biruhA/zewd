@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// These Enums provide the options for your Admin dropdowns
+enum MetalType {
+  GOLD
+  PLATINUM
+}
+
+enum MetalColor {
+  YELLOW
+  WHITE
+  ROSE
+}
+
+enum DiamondShape {
+  ROUND
+  OVAL
+  PEAR
+  PRINCESS
+  EMERALD
+  MARQUISE
+}
+
+model CatalogRing {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  style        String         // e.g., "Solitaire", "Halo", "Vintage"
+  description  String?
+  basePrice    Float          // The price with the most basic configuration
+  
+  // Array of image objects with metadata
+  images       JewelryImage[]
+  
+  // Available configurations for this specific ring
+  metals       MetalOption[]
+  diamonds     DiamondOption[]
+  
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+type JewelryImage {
+  url          String
+  metalColor   MetalColor?    // Optional: Only set if the image shows a specific metal
+  diamondShape DiamondShape?  // Optional: Only set if it shows a specific diamond
+  isHero       Boolean        @default(false)
+}
+
+type MetalOption {
+  type         MetalType
+  color        MetalColor
+  purity       String         // e.g., "14k", "18k"
+  priceModifier Float         // Added to basePrice (e.g., 0 for 14k, 200 for 18k)
+}
+
+type DiamondOption {
+  shape        DiamondShape
+  carat        Float
+  color        String         // e.g., "G", "H", "F"
+  clarity      String         // e.g., "VS1", "VVS2"
+  cut          String         // e.g., "Excellent"
+  origin       String         // "Natural" or "Lab"
+  priceModifier Float         // Added to basePrice
+}
