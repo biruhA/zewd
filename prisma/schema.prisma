@@ -19,19 +19,32 @@ enum MetalColor {
   ROSE
 }
 
+enum RingStyle {
+  SOLITAIRE
+  HALO
+  TOI_ET_MOI
+  DIAMOND_BAND
+  TRILOGY
+}
+
 enum DiamondShape {
   ROUND
   OVAL
   PEAR
-  PRINCESS
+  HEART
+  CUSHION
   EMERALD
+  PRINCESS
   MARQUISE
+  ASSCHER
+  RADIANT
+  PEAR_AND_PEAR
 }
 
 model CatalogRing {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  style        String         // e.g., "Solitaire", "Halo", "Vintage"
+  style        RingStyle      // Switched to Enum
   description  String?
   basePrice    Float          // The price with the most basic configuration
   

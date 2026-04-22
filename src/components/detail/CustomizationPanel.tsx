@@ -1,63 +1,74 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCustomizationStore } from "@/store/useCustomizationStore";
 
 interface RingConfig {
   name: string;
-  price: number;
-  metal: string;
-  shape: string;
+  basePrice: number;
+  style: {
+    id: string;
+    label: string;
+    description: string;
+    priceModifier: number;
+  };
+  metals: {
+    id: string;
+    label: string;
+    from: string;
+    to: string;
+    priceModifier: number;
+  }[];
+  diamonds: {
+    id: string;
+    label: string;
+    icon: string;
+    priceModifier: number;
+  }[];
 }
-
-const SHAPES = [
-  { id: "round", label: "Round", icon: "diamond" },
-  { id: "princess", label: "Princess", icon: "crop_square" },
-  { id: "emerald", label: "Emerald", icon: "hexagon" },
-  { id: "oval", label: "Oval", icon: "egg" },
-];
-
-const METALS = [
-  { id: "platinum", label: "Platinum", from: "#e5e4e2", to: "#d3d2d0" },
-  { id: "white-gold", label: "White Gold", from: "#f0f1f5", to: "#e6e8fa" },
-  {
-    id: "yellow-gold",
-    label: "18k Yellow Gold",
-    from: "#f3e5ab",
-    to: "#e8d58a",
-  },
-  { id: "rose-gold", label: "18k Rose Gold", from: "#d4a3a3", to: "#c58f8f" },
-];
-
-const BAND_STYLES = [
-  {
-    id: "plain",
-    label: "Plain",
-    description: "Smooth, polished finish.",
-    priceModifier: 0,
-  },
-  {
-    id: "pave",
-    label: "Pavé",
-    description: "Continuous diamond sparkle.",
-    priceModifier: 600,
-  },
-];
-
-const RING_SIZES = ["4", "4.5", "5", "5.5", "6", "6.5", "7", "7.5", "8"];
 
 interface CustomizationPanelProps {
   ring: RingConfig;
 }
 
 export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
-  const [selectedShape, setSelectedShape] = useState("round");
-  const [selectedMetal, setSelectedMetal] = useState("platinum");
-  const [selectedBand, setSelectedBand] = useState("plain");
+  const { 
+    selectedShape, 
+    selectedMetal, 
+    selectedBand, 
+    setSelectedShape, 
+    setSelectedMetal, 
+    setSelectedBand,
+    setInitialState
+  } = useCustomizationStore();
+
   const [selectedSize, setSelectedSize] = useState("");
 
-  const bandModifier =
-    BAND_STYLES.find((b) => b.id === selectedBand)?.priceModifier || 0;
-  const totalPrice = ring.price + bandModifier;
+  // Initialize store with default values from the ring data on mount
+  useEffect(() => {
+    const defaultShape = ring.diamonds.length > 0 ? ring.diamonds[0].id : "";
+    const defaultMetal = ring.metals.length > 0 ? ring.metals[0].id : "";
+    const defaultBand = ring.style.id;
+    setInitialState(defaultShape, defaultMetal, defaultBand);
+  }, [ring, setInitialState]);
+
+  // If store is not initialized yet (first render), use defaults for price calc
+  const currentShapeId = selectedShape || (ring.diamonds.length > 0 ? ring.diamonds[0].id : "");
+  const currentMetalId = selectedMetal || (ring.metals.length > 0 ? ring.metals[0].id : "");
+  const currentBandId = selectedBand || ring.style.id;
+
+  const activeShape = ring.diamonds.find((d) => d.id === currentShapeId);
+  const activeMetal = ring.metals.find((m) => m.id === currentMetalId);
+  
+  // Create an array with the single style for the UI to map over
+  const BAND_STYLES = [ring.style];
+  const activeBand = BAND_STYLES.find((b) => b.id === currentBandId);
+
+  const shapeModifier = activeShape?.priceModifier || 0;
+  const metalModifier = activeMetal?.priceModifier || 0;
+  const bandModifier = activeBand?.priceModifier || 0;
+  
+  const totalPrice = ring.basePrice + shapeModifier + metalModifier + bandModifier;
 
   return (
     <section className="w-full md:w-[35%] lg:w-[35%] bg-surface h-full overflow-y-auto no-scrollbar md:fixed right-0 top-0 pt-8 md:pt-28 pb-12 px-8 lg:px-12 z-30 border-l border-outline-variant/20">
@@ -67,7 +78,7 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
           {ring.name}
         </h1>
         <p className="font-body text-sm text-on-surface-variant tracking-[0.2em] uppercase">
-          Starting from ${totalPrice.toLocaleString()}
+          Starting from £{totalPrice.toLocaleString()}
         </p>
       </header>
 
@@ -81,19 +92,19 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
             </button>
           </div>
           <div className="grid grid-cols-4 gap-3">
-            {SHAPES.map((shape) => (
+            {ring.diamonds.map((shape) => (
               <button
                 key={shape.id}
                 onClick={() => setSelectedShape(shape.id)}
                 className={`aspect-square flex flex-col items-center justify-center gap-2 group transition-all duration-300 ${
-                  selectedShape === shape.id
+                  currentShapeId === shape.id
                     ? "border border-on-background bg-surface-container-lowest shadow-[0_0_15px_rgba(10,29,45,0.05)]"
                     : "border border-outline-variant/50 hover:border-on-background/50 bg-surface-container-lowest"
                 }`}
               >
                 <span
                   className={`material-symbols-outlined text-2xl font-light transition-colors ${
-                    selectedShape === shape.id
+                    currentShapeId === shape.id
                       ? "text-on-background"
                       : "text-on-surface-variant group-hover:text-on-background"
                   }`}
@@ -102,7 +113,7 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
                 </span>
                 <span
                   className={`text-[9px] font-label uppercase tracking-widest transition-colors ${
-                    selectedShape === shape.id
+                    currentShapeId === shape.id
                       ? "text-on-background"
                       : "text-on-surface-variant group-hover:text-on-background"
                   }`}
@@ -119,14 +130,14 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
           <h2 className="font-headline text-lg text-on-background mb-6">
             Metal
           </h2>
-          <div className="flex gap-5">
-            {METALS.map((metal) => (
+          <div className="flex gap-5 flex-wrap">
+            {ring.metals.map((metal) => (
               <button
                 key={metal.id}
                 onClick={() => setSelectedMetal(metal.id)}
                 aria-label={metal.label}
                 className={`w-10 h-10 rounded-full ring-offset-4 flex items-center justify-center transition-all shadow-inner ${
-                  selectedMetal === metal.id
+                  currentMetalId === metal.id
                     ? "ring-1 ring-on-background"
                     : "ring-1 ring-transparent hover:ring-outline-variant"
                 }`}
@@ -139,7 +150,7 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
             ))}
           </div>
           <p className="text-xs font-body tracking-wider text-on-background uppercase mt-5">
-            {METALS.find((m) => m.id === selectedMetal)?.label}
+            {activeMetal?.label || "Select Metal"}
           </p>
         </div>
 
@@ -154,7 +165,7 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
                 key={band.id}
                 onClick={() => setSelectedBand(band.id)}
                 className={`p-5 text-left group flex justify-between items-center transition-all duration-300 ${
-                  selectedBand === band.id
+                  currentBandId === band.id
                     ? "border border-on-background bg-surface-container-lowest shadow-[0_0_15px_rgba(10,29,45,0.03)]"
                     : "border border-outline-variant/50 hover:border-on-background/50 bg-transparent"
                 }`}
@@ -162,7 +173,7 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
                 <div>
                   <span
                     className={`font-headline text-base block mb-1 transition-colors ${
-                      selectedBand === band.id
+                      currentBandId === band.id
                         ? "text-on-background"
                         : "text-on-surface-variant group-hover:text-on-background"
                     }`}
@@ -173,50 +184,17 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
                     {band.description}
                   </span>
                 </div>
-                {selectedBand === band.id ? (
+                {currentBandId === band.id ? (
                   <span className="material-symbols-outlined text-on-background font-light">
                     check
                   </span>
                 ) : band.priceModifier > 0 ? (
                   <span className="text-xs font-label tracking-widest text-on-surface-variant group-hover:text-on-background transition-colors">
-                    + ${band.priceModifier}
+                    + £{band.priceModifier}
                   </span>
                 ) : null}
               </button>
             ))}
-          </div>
-        </div>
-
-        {/* Ring Size */}
-        <div className="pt-8 border-t border-outline-variant/30">
-          <div className="flex justify-between items-center mb-4">
-            <label
-              className="font-headline text-lg text-on-background"
-              htmlFor="ring-size"
-            >
-              Ring Size
-            </label>
-            <button className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant hover:text-on-background transition-colors pb-0.5 border-b border-on-surface-variant/30">
-              Size Guide
-            </button>
-          </div>
-          <div className="relative mt-4 border border-outline-variant/50 hover:border-on-background/50 transition-colors">
-            <select
-              id="ring-size"
-              value={selectedSize}
-              onChange={(e) => setSelectedSize(e.target.value)}
-              className="w-full appearance-none bg-transparent border-0 py-4 px-5 text-on-background font-body text-sm focus:ring-0 cursor-pointer rounded-none"
-            >
-              <option value="">Select Size</option>
-              {RING_SIZES.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant font-light">
-              expand_more
-            </span>
           </div>
         </div>
 
