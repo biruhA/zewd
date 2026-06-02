@@ -1,6 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
+import ConsultationModal, { ConsultationModalRef } from "./ConsultationModal";
 
 export default function HeroSection() {
+  const modalRef = useRef<ConsultationModalRef>(null);
+
   return (
     <section className="relative h-screen w-full flex items-center overflow-hidden bg-surface-container-low">
       <div className="absolute inset-0 z-0">
@@ -17,12 +23,14 @@ export default function HeroSection() {
             Legacy of Excellence
           </span>
           <h1 className="text-7xl lg:text-9xl mb-8 leading-[1.1] tracking-tight">
-            CRAFTING <br />
-            <span className="italic">FOREVER</span>
+            Create Your
+            <br />
+            <span className="">Forever</span>
           </h1>
-          <p className="font-body text-lg text-on-surface-variant mb-12 max-w-md leading-relaxed">
-            Unrivaled brilliance curated for life's most profound promises.
-            Discover the world of bespoke high-jewelry.
+          <p className="font-body text-lg text-on-surface-variant mb-12 max-w-base leading-relaxed">
+            We know how important the right ring is for this moment.
+            <br />
+            Let us help you find the perfect one.
           </p>
           <div className="flex gap-6">
             <Link
@@ -31,7 +39,10 @@ export default function HeroSection() {
             >
               Explore Collection
             </Link>
-            <button className="border border-outline-variant/40 px-10 py-5 text-primary-custom font-label uppercase tracking-widest text-xs hover:bg-surface-container-highest transition-colors rounded-sm">
+            <button
+              onClick={() => modalRef.current?.open()}
+              className="border border-outline-variant shadow-xs px-10 py-5 text-primary-custom font-label uppercase tracking-widest text-xs hover:bg-surface-container-highest transition-colors rounded-sm cursor-pointer"
+            >
               Book Consultation
             </button>
           </div>
@@ -44,6 +55,8 @@ export default function HeroSection() {
         </span>
         <div className="w-[1px] h-24 bg-gradient-to-b from-primary-custom/60 to-transparent"></div>
       </div>
+
+      <ConsultationModal ref={modalRef} />
     </section>
   );
 }

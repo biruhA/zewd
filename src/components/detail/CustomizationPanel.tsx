@@ -32,14 +32,14 @@ interface CustomizationPanelProps {
 }
 
 export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
-  const { 
-    selectedShape, 
-    selectedMetal, 
-    selectedBand, 
-    setSelectedShape, 
-    setSelectedMetal, 
+  const {
+    selectedShape,
+    selectedMetal,
+    selectedBand,
+    setSelectedShape,
+    setSelectedMetal,
     setSelectedBand,
-    setInitialState
+    setInitialState,
   } = useCustomizationStore();
 
   const [selectedSize, setSelectedSize] = useState("");
@@ -53,13 +53,15 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
   }, [ring, setInitialState]);
 
   // If store is not initialized yet (first render), use defaults for price calc
-  const currentShapeId = selectedShape || (ring.diamonds.length > 0 ? ring.diamonds[0].id : "");
-  const currentMetalId = selectedMetal || (ring.metals.length > 0 ? ring.metals[0].id : "");
+  const currentShapeId =
+    selectedShape || (ring.diamonds.length > 0 ? ring.diamonds[0].id : "");
+  const currentMetalId =
+    selectedMetal || (ring.metals.length > 0 ? ring.metals[0].id : "");
   const currentBandId = selectedBand || ring.style.id;
 
   const activeShape = ring.diamonds.find((d) => d.id === currentShapeId);
   const activeMetal = ring.metals.find((m) => m.id === currentMetalId);
-  
+
   // Create an array with the single style for the UI to map over
   const BAND_STYLES = [ring.style];
   const activeBand = BAND_STYLES.find((b) => b.id === currentBandId);
@@ -67,8 +69,9 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
   const shapeModifier = activeShape?.priceModifier || 0;
   const metalModifier = activeMetal?.priceModifier || 0;
   const bandModifier = activeBand?.priceModifier || 0;
-  
-  const totalPrice = ring.basePrice + shapeModifier + metalModifier + bandModifier;
+
+  const totalPrice =
+    ring.basePrice + shapeModifier + metalModifier + bandModifier;
 
   return (
     <section className="w-full md:w-[35%] lg:w-[35%] bg-surface h-full overflow-y-auto no-scrollbar md:fixed right-0 top-0 pt-8 md:pt-28 pb-12 px-8 lg:px-12 z-30 border-l border-outline-variant/20">

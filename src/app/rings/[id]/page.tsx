@@ -50,7 +50,7 @@ export default async function RingDetailPage({
   // Format default options for CustomizationPanel
   const defaultMetal = ring.metals[0];
   const defaultDiamond = ring.diamonds[0];
-  
+
   // Format Metals
   const formattedMetals = ring.metals.map((metal) => {
     let from = "#e5e4e2";
@@ -83,28 +83,38 @@ export default async function RingDetailPage({
   // Format Diamonds
   const getIconForShape = (shape: string) => {
     switch (shape) {
-      case "ROUND": return "diamond";
-      case "PRINCESS": return "crop_square";
-      case "EMERALD": return "hexagon";
-      case "OVAL": return "egg";
-      case "PEAR": return "water_drop";
-      case "HEART": return "favorite";
-      default: return "diamond";
+      case "ROUND":
+        return "diamond";
+      case "PRINCESS":
+        return "crop_square";
+      case "EMERALD":
+        return "hexagon";
+      case "OVAL":
+        return "egg";
+      case "PEAR":
+        return "water_drop";
+      case "HEART":
+        return "favorite";
+      default:
+        return "diamond";
     }
   };
 
   const formattedDiamonds = ring.diamonds.map((diamond) => {
-    const label = diamond.shape.charAt(0) + diamond.shape.slice(1).toLowerCase().replace('_', ' ');
+    const label =
+      diamond.shape.charAt(0) +
+      diamond.shape.slice(1).toLowerCase().replace("_", " ");
     return {
       id: diamond.shape,
       label,
       icon: getIconForShape(diamond.shape),
-      priceModifier: diamond.priceModifier
+      priceModifier: diamond.priceModifier,
     };
   });
 
   // Format Style
-  const styleLabel = ring.style.charAt(0) + ring.style.slice(1).toLowerCase().replace('_', ' ');
+  const styleLabel =
+    ring.style.charAt(0) + ring.style.slice(1).toLowerCase().replace("_", " ");
   const formattedStyle = {
     id: ring.style,
     label: styleLabel,

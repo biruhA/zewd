@@ -19,9 +19,14 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "THE ATELIER | High-End Luxury Diamonds & Jewelry",
+  title: "Zewd Diamond and Jewellery",
   description:
     "A destination for those who seek the extraordinary. Curating timeless brilliance since 1924.",
+  icons: {
+    icon: "/images/icon.png",
+    shortcut: "/images/icon.png",
+    apple: "/images/icon.png",
+  },
 };
 
 export default function RootLayout({

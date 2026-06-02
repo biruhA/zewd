@@ -5,7 +5,7 @@ import { createCatalogRing } from '@/app/actions/catalog';
 
 // Types matching the Prisma schema
 interface JewelryImage {
-  url: string;
+  file: File | null;
   metalColor: string;
   diamondShape: string;
   isHero: boolean;
@@ -45,7 +45,7 @@ export default function CatalogManagerPage() {
 
   // Handlers for Images
   const addImage = () => {
-    setImages([...images, { url: '', metalColor: 'WHITE', diamondShape: 'ROUND', isHero: images.length === 0 }]);
+    setImages([...images, { file: null, metalColor: 'WHITE', diamondShape: 'ROUND', isHero: images.length === 0 }]);
   };
   const removeImage = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
@@ -89,15 +89,28 @@ export default function CatalogManagerPage() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     startTransition(async () => {
-      const result = await createCatalogRing({
-        name,
-        style,
-        description,
-        basePrice,
-        images,
-        metals,
-        diamonds
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('style', style);
+      formData.append('description', description);
+      formData.append('basePrice', basePrice);
+      formData.append('metals', JSON.stringify(metals));
+      formData.append('diamonds', JSON.stringify(diamonds));
+
+      const imagesData = images.map(img => ({
+        metalColor: img.metalColor,
+        diamondShape: img.diamondShape,
+        isHero: img.isHero
+      }));
+      formData.append('imagesData', JSON.stringify(imagesData));
+
+      images.forEach(img => {
+        if (img.file) {
+          formData.append('images', img.file);
+        }
       });
+
+      const result = await createCatalogRing(formData);
       if (result.success) {
         setSuccess(true);
         // Reset form or redirect
@@ -117,7 +130,7 @@ export default function CatalogManagerPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSave} className="space-y-16">
+      <form onSubmit={handleSave} className="space-y-16" encType="multipart/form-data">
         {/* Section 1: Base Details */}
         <section className="bg-white dark:bg-surface-container-low rounded-sm p-12 space-y-10 border border-outline-variant/10 editorial-shadow relative group">
           <div className="absolute -left-[1px] top-12 w-[3px] h-16 bg-primary-custom opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -203,12 +216,16 @@ export default function CatalogManagerPage() {
                   <span className="material-symbols-outlined text-[16px]">close</span>
                 </button>
                 <div className="md:col-span-5 space-y-2 relative pt-6">
-                  <label className="absolute top-0 left-0 text-[10px] text-primary-custom font-label uppercase tracking-[0.2em]">Image URL</label>
+                  <label className="absolute top-0 left-0 text-[10px] text-primary-custom font-label uppercase tracking-[0.2em]">Image File</label>
                   <input 
+                    type="file"
+                    accept="image/*"
                     className="w-full bg-transparent border-none border-b border-outline-variant/20 focus:border-primary-custom focus:ring-0 py-2 text-sm text-on-surface outline-none"
-                    placeholder="https://..."
-                    value={img.url}
-                    onChange={(e) => updateImage(idx, 'url', e.target.value)}
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        updateImage(idx, 'file', e.target.files[0]);
+                      }
+                    }}
                   />
                 </div>
                 <div className="md:col-span-2 space-y-2 relative pt-6">

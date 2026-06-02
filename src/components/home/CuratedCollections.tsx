@@ -1,5 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import ring from "../../../public/images/photo_2026-05-28 16.54.10.jpeg";
+import hand from "../../../public/images/photo_2026-05-28 16.54.14.jpeg";
+import Image from "next/image";
 
 export default function CuratedCollections() {
   return (
@@ -11,9 +14,8 @@ export default function CuratedCollections() {
               CURATED <span className="italic">PIECES</span>
             </h2>
             <p className="text-on-surface-variant font-body leading-relaxed">
-              Each design at The Atelier is a dialogue between timeless heritage
-              and contemporary precision, crafted to catch every flicker of
-              light.
+              Thoughtfully curated fine jewelry, selected to celebrate timeless
+              elegance
             </p>
           </div>
           <Link
@@ -28,11 +30,11 @@ export default function CuratedCollections() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {/* Large Feature Card */}
           <div className="md:col-span-7 group cursor-pointer overflow-hidden relative">
-            <div className="aspect-[4/5] overflow-hidden bg-surface-container">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkgxq-SOkttYbOGatMYyWmTg6WkUYwt2CakrmJ9dpE-2ozoGFQivS6wSWgoKmta3eV3dp7yzujz_vPduQZGKvHX5AlvH0hCqQcqJvJIHPlFz9yqHhaKbK5CG6BaUh6m6C9YnDEL8MwFH0Wt9tFqlQ7bBN7T-mjgvAx2wbs1zWFZsznBQJf6MOD1rWvbA0sIp95OQ1zCwjKsqoZIFb4RGDe2wgJeDeia6OdqnsfwkqB389JAQcgUbWe-dVdWo0qyf9zhK5HvM1eM4s"
-                alt="Luxurious lifestyle photo of a diamond engagement ring"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            <div className="aspect-[4/5] overflow-hidden bg-surface-container rounded-md">
+              <Image
+                src={hand}
+                alt="ring"
+                className="w-full h-full object-fill rounded-md group-hover:scale-105 transition-transform duration-700"
               />
             </div>
             <div className="mt-8">
@@ -46,11 +48,11 @@ export default function CuratedCollections() {
           {/* Secondary Cards Stacked */}
           <div className="md:col-span-5 flex flex-col gap-16 md:mt-24">
             <div className="group cursor-pointer">
-              <div className="aspect-square overflow-hidden bg-surface-container">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6SlIinylVWYIsOH41lfFxXWZk8F1Oh8MwbvHKUrGUqfxQ_u57QRx-N8UqMPOn19ODAV_LENb6qaAjf2Z34f2NsYl-zjn7Q0Bjkod6gWLRJXX1zvbUjb9sRh6l7hwhKStkrExOZGJpNaL-eikZSC7oY7NrqX7962jdMsfpnNqUCKiQYQ5m0yUmglocrNrQHJtMe3JheCb0FDULNAh-h6vL_mxAOsZ45UlypCZUjB9TjKvUJCtEh8EYWdbwo-PysTX5UETY5cwjlL0"
-                  alt="Platinum wedding bands intertwined"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              <div className="aspect-square overflow-hidden bg-surface-container rounded-md">
+                <Image
+                  src={ring}
+                  alt="ring"
+                  className="w-full h-full object-fill rounded-md group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
               <div className="mt-8">
@@ -62,7 +64,7 @@ export default function CuratedCollections() {
             </div>
 
             <div className="group cursor-pointer">
-              <div className="aspect-[3/4] overflow-hidden bg-surface-container">
+              <div className="aspect-[3/4] overflow-hidden bg-surface-container rounded-md">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYlqcboDVpseK2DSeVbgEILFh3xidsu57Ww3qmm5OgHZ1J3kI-kktkr9ux1gowxW9OIfv8SWx-qhMp2U35HCUa8x7QRnlSOE5ffmHE87dXGyeOucNfgf1CAUNxX7CGGsAmtX-W3zS_cxvx3YLoXvjurzgu1H229zB8MOQVdxTJizgRnm8oMiMbJVHDLcUbS0eSY8nef6nLhhP0k70TattKP9yZGMfQuIUO8e70Jk515I3Dtag9Fh2dJttfQpBAbn7LKHxwS0lm0o8"
                   alt="Diamond sketches and professional jeweler tools"
