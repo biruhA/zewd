@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Noto_Serif, Manrope } from "next/font/google";
+import {
+  Noto_Serif,
+  Manrope,
+  Cormorant_Garamond,
+  Cinzel,
+} from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import TopNavBar from "@/components/layout/TopNavBar";
 import Footer from "@/components/layout/Footer";
@@ -16,6 +21,19 @@ const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["300", "400", "600"],
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -35,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <head>
         <link
           rel="stylesheet"
@@ -43,11 +61,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${notoSerif.variable} ${manrope.variable} antialiased selection:bg-primary-container-custom selection:text-on-primary-container`}
+        className={`${notoSerif.variable} ${manrope.variable} ${cormorantGaramond.variable} ${cinzel.variable} antialiased selection:bg-primary-container-custom selection:text-on-primary-container`}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

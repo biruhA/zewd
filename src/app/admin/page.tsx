@@ -126,7 +126,7 @@ export default function CatalogManagerPage() {
         <h2 className="font-headline text-5xl lg:text-6xl text-on-surface tracking-tight">Configure Setting</h2>
         <p className="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
           Define the structural base, imagery, and variant permutations for this piece. 
-          Each entry should reflect the precision and heritage of The Atelier.
+          Each entry should reflect the precision and heritage of Zewd Diamond & Jewelry.
         </p>
       </div>
 

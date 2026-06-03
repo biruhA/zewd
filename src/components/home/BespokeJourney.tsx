@@ -1,6 +1,6 @@
 export default function BespokeJourney() {
   return (
-    <section className="py-32 bg-surface-container-low">
+    <section id="bespoke-journey" className="py-32 bg-surface-container-low">
       <div className="container mx-auto px-12">
         <div className="text-center mb-24">
           <h2 className="text-5xl mb-6">

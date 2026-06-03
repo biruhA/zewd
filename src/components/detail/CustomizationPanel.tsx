@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useCustomizationStore } from "@/store/useCustomizationStore";
 
 interface RingConfig {
   name: string;
   basePrice: number;
+  images: string[];
   style: {
     id: string;
     label: string;
@@ -31,6 +32,9 @@ interface CustomizationPanelProps {
   ring: RingConfig;
 }
 
+// TODO: Replace with your actual WhatsApp phone number (include country code, no + or spaces)
+const WHATSAPP_PHONE = "251921429029";
+
 export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
   const {
     selectedShape,
@@ -43,6 +47,7 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
   } = useCustomizationStore();
 
   const [selectedSize, setSelectedSize] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   // Initialize store with default values from the ring data on mount
   useEffect(() => {
@@ -72,6 +77,37 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
 
   const totalPrice =
     ring.basePrice + shapeModifier + metalModifier + bandModifier;
+
+  // Save Design: download the first ring image
+  const handleSaveDesign = useCallback(async () => {
+    if (ring.images.length === 0) return;
+    setIsSaving(true);
+    try {
+      const imageUrl = ring.images[0];
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${ring.name.replace(/\s+/g, "-").toLowerCase()}-design.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch {
+      // Fallback: open image in new tab
+      window.open(ring.images[0], "_blank");
+    } finally {
+      setIsSaving(false);
+    }
+  }, [ring.images, ring.name]);
+
+  // Contact us: open WhatsApp with a pre-filled message
+  const handleContactWhatsApp = useCallback(() => {
+    const message = `Hi, I'm interested in the *${ring.name}* ring.\n\nMy selections:\n• Shape: ${activeShape?.label || "N/A"}\n• Metal: ${activeMetal?.label || "N/A"}\n• Band: ${activeBand?.label || "N/A"}\n\nI'd like to know more about purchasing this design.`;
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encoded}`, "_blank");
+  }, [ring.name, activeShape, activeMetal, activeBand, totalPrice]);
 
   return (
     <section className="w-full md:w-[35%] lg:w-[35%] bg-surface h-full overflow-y-auto no-scrollbar md:fixed right-0 top-0 pt-8 md:pt-28 pb-12 px-8 lg:px-12 z-30 border-l border-outline-variant/20">
@@ -201,20 +237,27 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
           </div>
         </div>
 
-        {/* Action Button */}
-        <div className="pt-8">
-          <button className="w-full py-5 hero-gradient text-on-primary font-body text-xs tracking-[0.2em] uppercase hover:opacity-90 transition-opacity duration-400 flex items-center justify-center gap-4 metallic-shine relative overflow-hidden">
-            Add to Collection
+        {/* Action Buttons */}
+        <div className="pt-8 space-y-3">
+          <button
+            onClick={handleSaveDesign}
+            disabled={isSaving}
+            className="w-full py-5 border border-on-background text-on-background font-body text-xs tracking-[0.2em] uppercase hover:bg-on-background hover:text-surface transition-all duration-400 flex items-center justify-center gap-4 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSaving ? "Saving..." : "Save Design"}
+            <span className="material-symbols-outlined text-[16px] font-light">
+              {isSaving ? "hourglass_empty" : "download"}
+            </span>
+          </button>
+          <button
+            onClick={handleContactWhatsApp}
+            className="w-full py-5 hero-gradient text-on-primary font-body text-xs tracking-[0.2em] uppercase hover:opacity-90 transition-opacity duration-400 flex items-center justify-center gap-4 metallic-shine relative overflow-hidden"
+          >
+            Contact us to Purchase
             <span className="material-symbols-outlined text-[16px] font-light">
               east
             </span>
           </button>
-          <p className="text-center text-[10px] uppercase tracking-widest text-on-surface-variant font-label mt-6 flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined text-[14px] font-light">
-              verified_user
-            </span>
-            Complimentary secure shipping &amp; returns
-          </p>
         </div>
 
         {/* Collapsible Details */}
@@ -230,7 +273,7 @@ export default function CustomizationPanel({ ring }: CustomizationPanelProps) {
               A delicate 4-prong setting secures the center diamond while
               maximizing light return. The knife-edge band creates a razor-thin
               silhouette from the top view, emphasizing the scale of the stone.
-              Handcrafted in our atelier.
+              Handcrafted in our studio.
             </div>
           </details>
           <details className="group border-b border-outline-variant/30 py-5">

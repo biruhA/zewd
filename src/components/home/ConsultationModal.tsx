@@ -88,7 +88,7 @@ const ConsultationModal = forwardRef<ConsultationModalRef, ConsultationModalProp
       <div className="flex justify-between items-start mb-6">
         <div>
           <span className="font-label text-primary-custom tracking-[0.3em] uppercase text-[10px] mb-2 block">
-            The Atelier
+            Zewd Diamond & Jewelry
           </span>
           <h3 className="text-2xl font-headline tracking-tight text-[#0a1d2d] dark:text-white">
             Book a Consultation
@@ -110,7 +110,7 @@ const ConsultationModal = forwardRef<ConsultationModalRef, ConsultationModalProp
       <div className="space-y-3 font-body">
         {/* Telephone Call */}
         <a
-          href="tel:+251911234567"
+          href="tel:+251921429029"
           className="group flex items-center justify-between p-4 bg-white/30 dark:bg-white/5 border border-outline-variant/10 dark:border-white/5 rounded-xl hover:bg-primary-custom/10 hover:border-primary-custom/30 transition-all duration-300"
         >
           <div className="flex items-center gap-4">
@@ -122,7 +122,7 @@ const ConsultationModal = forwardRef<ConsultationModalRef, ConsultationModalProp
                 Call Our Boutique
               </span>
               <span className="text-sm font-semibold text-[#0a1d2d] dark:text-white">
-                +251 911 234 567
+                +251 921 429 029
               </span>
             </div>
           </div>
@@ -140,7 +140,7 @@ const ConsultationModal = forwardRef<ConsultationModalRef, ConsultationModalProp
             </div>
             <div className="text-left">
               <span className="text-[10px] tracking-widest text-[#0a1d2d]/50 dark:text-white/50 uppercase block">
-                Email Atelier
+                Email Zewd
               </span>
               <span className="text-sm font-semibold text-[#0a1d2d] dark:text-white">
                 consultation@zewddiamonds.com
@@ -259,7 +259,7 @@ const ConsultationModal = forwardRef<ConsultationModalRef, ConsultationModalProp
             </div>
             <div className="text-left">
               <span className="text-[10px] tracking-widest text-[#0a1d2d]/50 dark:text-white/50 uppercase block">
-                Visit Our Atelier
+                Visit Our Boutique
               </span>
               <span className="text-xs font-semibold text-[#0a1d2d] dark:text-white">
                 Bole Road, Addis Ababa, Ethiopia

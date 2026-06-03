@@ -3,7 +3,7 @@ import { Gem, HandHeart } from "lucide-react";
 /* eslint-disable @next/next/no-img-element */
 export default function DiamondExperience() {
   return (
-    <section className="bg-on-background text-white py-32 overflow-hidden relative">
+    <section id="diamond-experience" className="bg-on-background dark:bg-[#071521] text-white py-32 overflow-hidden relative">
       <div className="container mx-auto px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="relative">
@@ -12,7 +12,7 @@ export default function DiamondExperience() {
               alt="Professional diamond grader inspecting a diamond"
               className="w-full h-auto aspect-square object-cover"
             />
-            <div className="absolute -bottom-12 -right-12 w-72 h-40 bg-primary-container-custom/20 backdrop-blur-xl p-8 hidden lg:block">
+            <div className="absolute -bottom-12 -right-12 w-72 h-40 bg-primary-container-custom/20 dark:bg-[#c1a27a]/10 backdrop-blur-xl border border-white/10 dark:border-white/10 p-8 hidden lg:block">
               <p className="font-headline italic text-xl">
                 "Every Zewd diamond is a promise of heritage, crafted with
                 mastery."
@@ -31,7 +31,7 @@ export default function DiamondExperience() {
               </span>
             </h2>
 
-            <div className="space-y-8 font-body text-surface/70 leading-relaxed">
+            <div className="space-y-8 font-body text-white/60 leading-relaxed">
               <p>
                 At Zewd Diamond & Jewelry, we source only the finest natural,
                 lab diamonds & precious gemstones.
@@ -43,7 +43,7 @@ export default function DiamondExperience() {
               </p>
             </div>
 
-            <div className="mt-12 grid grid-cols-2 gap-8 pt-12 border-t border-white/10">
+            <div className="mt-12 grid grid-cols-2 gap-8 pt-12 border-t border-white/10 dark:border-white/10">
               <div>
                 <Gem
                   strokeWidth={1}

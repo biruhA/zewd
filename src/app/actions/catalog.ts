@@ -2,11 +2,12 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { RingStyle } from '@prisma/client';
 
 export async function createCatalogRing(formData: FormData) {
   try {
     const name = formData.get('name') as string;
-    const style = formData.get('style') as string;
+    const style = formData.get('style') as RingStyle;
     const description = formData.get('description') as string;
     const basePrice = parseFloat(formData.get('basePrice') as string);
     

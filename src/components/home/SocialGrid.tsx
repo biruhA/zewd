@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 export default function SocialGrid() {
   return (
-    <section className="py-32 bg-surface">
+    <section id="social-grid" className="py-32 bg-surface">
       <div className="container mx-auto px-12">
         <div className="flex justify-between items-center mb-16">
-          <h2 className="text-3xl font-headline tracking-tight">AS SEEN ON <span className="italic">#THEATELIER</span></h2>
+          <h2 className="text-3xl font-headline tracking-tight">AS SEEN ON <span className="italic">#ZEWDDIAMOND</span></h2>
           <div className="flex gap-4">
             <span className="material-symbols-outlined cursor-pointer text-primary-custom/40 hover:text-primary-custom transition-colors">chevron_left</span>
             <span className="material-symbols-outlined cursor-pointer text-primary-custom/40 hover:text-primary-custom transition-colors">chevron_right</span>

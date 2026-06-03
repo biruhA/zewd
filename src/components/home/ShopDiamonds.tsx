@@ -62,7 +62,7 @@ const shapes: DiamondShape[] = [
 
 export default function ShopDiamonds() {
   return (
-    <section className="py-24 bg-surface border-t border-surface-container-low">
+    <section id="shop-diamonds" className="py-24 bg-surface border-t border-surface-container-low">
       <div className="container mx-auto px-6 md:px-12 text-center">
         <div className="max-w-2xl mx-auto mb-16">
           <h2 className="text-4xl md:text-5xl mb-4 font-headline tracking-wide text-on-surface">

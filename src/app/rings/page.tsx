@@ -5,7 +5,7 @@ import ProductGrid from "@/components/collection/ProductGrid";
 import ConsultationCta from "@/components/collection/ConsultationCta";
 
 export const metadata: Metadata = {
-  title: "Engagement Rings | THE ATELIER",
+  title: "Engagement Rings | ZEWD DIAMOND & JEWELRY",
   description:
     "A testament to eternal devotion. Discover our curated selection of bespoke engagement ring designs.",
 };
@@ -16,7 +16,7 @@ export default function RingsPage() {
       <CollectionHero />
       <FilterSortBar />
       <ProductGrid />
-      <ConsultationCta />
+      {/* <ConsultationCta /> */}
     </main>
   );
 }

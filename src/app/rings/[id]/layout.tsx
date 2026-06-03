@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Ring Detail | THE ATELIER',
-  description: 'Customize your perfect engagement ring at The Atelier.',
+  title: 'Ring Detail | ZEWD DIAMOND & JEWELRY',
+  description: 'Customize your perfect engagement ring at Zewd Diamond & Jewelry.',
 };
 
 export default function RingDetailLayout({

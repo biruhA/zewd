@@ -23,9 +23,9 @@ export async function generateMetadata({
   });
 
   return {
-    title: ring ? `${ring.name} | THE ATELIER` : "Ring Details | THE ATELIER",
+    title: ring ? `${ring.name} | ZEWD DIAMOND & JEWELRY` : "Ring Details | ZEWD DIAMOND & JEWELRY",
     description:
-      "Discover and customize your perfect engagement ring at The Atelier.",
+      "Discover and customize your perfect engagement ring at Zewd Diamond and Jewelry.",
   };
 }
 
@@ -167,6 +167,7 @@ export default async function RingDetailPage({
           ring={{
             name: ring.name,
             basePrice: ring.basePrice,
+            images: imageUrls,
             style: formattedStyle,
             metals: formattedMetals,
             diamonds: formattedDiamonds,

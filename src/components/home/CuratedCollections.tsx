@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function CuratedCollections() {
   return (
-    <section className="py-32 bg-surface">
+    <section id="curated-collections" className="py-32 bg-surface">
       <div className="container mx-auto px-12">
         <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
           <div className="max-w-xl">
