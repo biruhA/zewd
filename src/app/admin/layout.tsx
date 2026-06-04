@@ -1,11 +1,16 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
     <div className="flex h-screen overflow-hidden antialiased bg-surface selection:bg-primary-container-custom selection:text-on-primary-container font-body pt-20">
       {/* SideNavBar */}
@@ -27,7 +32,7 @@ export default function AdminLayout({
         <div className="flex-1 space-y-2">
           <Link
             href="/admin"
-            className="flex items-center space-x-3 px-4 py-3 bg-surface-container-highest text-primary-custom font-bold rounded-sm group transition-all duration-300"
+            className={`flex items-center space-x-3 px-4 py-3 rounded-sm group transition-all duration-300 ${pathname === "/admin" ? "bg-surface-container-highest text-primary-custom font-bold" : "text-on-surface-variant hover:text-primary-custom hover:bg-surface-container-high"}`}
           >
             <span className="material-symbols-outlined text-xl">diamond</span>
             <span className="text-sm tracking-wide">Catalog Manager</span>
@@ -35,7 +40,7 @@ export default function AdminLayout({
 
           <Link
             href="/admin/diamonds"
-            className="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:text-primary-custom hover:bg-surface-container-high transition-all duration-300 rounded-sm group"
+            className={`flex items-center space-x-3 px-4 py-3 rounded-sm group transition-all duration-300 ${pathname === "/admin/diamonds" ? "text-primary-custom bg-surface-container-high" : "text-on-surface-variant hover:text-primary-custom hover:bg-surface-container-high"}`}
           >
             <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">
               view_in_ar
@@ -45,7 +50,7 @@ export default function AdminLayout({
 
           <Link
             href="/admin/proposals"
-            className="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:text-primary-custom hover:bg-surface-container-high transition-all duration-300 rounded-sm group"
+            className={`flex items-center space-x-3 px-4 py-3 rounded-sm group transition-all duration-300 ${pathname === "/admin/proposals" ? "text-primary-custom bg-surface-container-high" : "text-on-surface-variant hover:text-primary-custom hover:bg-surface-container-high"}`}
           >
             <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">
               favorite
@@ -53,28 +58,12 @@ export default function AdminLayout({
             <span className="text-sm tracking-wide">Proposals Gallery</span>
           </Link>
         </div>
-
-        <div className="mt-auto pt-8 border-t border-outline-variant/10">
-          <button className="w-full py-4 hero-gradient text-on-primary rounded flex items-center justify-center space-x-2 text-sm font-label uppercase tracking-widest transition-all duration-500 hover:shadow-xl hover:-translate-y-0.5">
-            <span>Publish Changes</span>
-            <span className="material-symbols-outlined text-sm">publish</span>
-          </button>
-        </div>
+        {/* No publish button needed here */}
       </nav>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col relative overflow-hidden">
-        {/* Mobile App Bar */}
-        <header className="md:hidden flex justify-between items-center px-12 h-20 w-full bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 z-50">
-          <div className="text-xl font-headline italic tracking-widest text-on-surface font-bold">
-            ZEWD DIAMOND
-          </div>
-          <button className="text-on-surface">
-            <span className="material-symbols-outlined">menu</span>
-          </button>
-        </header>
-
-        <div className="flex-1 overflow-y-auto">{children}</div>
+      <main className="flex-1 flex flex-col relative overflow-scroll">
+        {children}
       </main>
     </div>
   );

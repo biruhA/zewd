@@ -11,58 +11,61 @@ const shapes: DiamondShape[] = [
   {
     name: "Round",
     icon: "https://qs.imgix.net/images/round-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/round",
+    href: "/rings/round",
   },
   {
     name: "Oval",
     icon: "https://qs.imgix.net/images/oval-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/oval",
+    href: "/rings/oval",
   },
   {
     name: "Cushion",
     icon: "https://qs.imgix.net/images/cushion-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/cushion",
+    href: "/rings/cushion",
   },
   {
     name: "Pear",
     icon: "https://qs.imgix.net/images/pear-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/pear",
+    href: "/rings/pear",
   },
   {
     name: "Emerald",
     icon: "https://qs.imgix.net/images/emerald-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/emerald-cut",
+    href: "/rings/emerald-cut",
   },
   {
     name: "Princess",
     icon: "https://qs.imgix.net/images/princess-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/princess",
+    href: "/rings/princess",
   },
   {
     name: "Heart",
     icon: "https://qs.imgix.net/images/heart-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/heart",
+    href: "/rings/heart",
   },
   {
     name: "Marquise",
     icon: "https://qs.imgix.net/images/marquise-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/marquise",
+    href: "/rings/marquise",
   },
   {
     name: "Asscher",
     icon: "https://qs.imgix.net/images/asscher-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/asscher-cut-engagement-rings",
+    href: "/rings/asscher-cut-engagement-rings",
   },
   {
     name: "Radiant",
     icon: "https://qs.imgix.net/images/radiant-diamond-shape-icon.png?auto=format&q=60&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=200&h=200",
-    href: "/engagement-rings/radiant-cut-engagement-rings",
+    href: "/rings/radiant-cut-engagement-rings",
   },
 ];
 
 export default function ShopDiamonds() {
   return (
-    <section id="shop-diamonds" className="py-24 bg-surface border-t border-surface-container-low">
+    <section
+      id="shop-diamonds"
+      className="py-24 bg-surface border-t border-surface-container-low"
+    >
       <div className="container mx-auto px-6 md:px-12 text-center">
         <div className="max-w-2xl mx-auto mb-16">
           <h2 className="text-4xl md:text-5xl mb-4 font-headline tracking-wide text-on-surface">
@@ -81,7 +84,7 @@ export default function ShopDiamonds() {
           {shapes.map((shape) => (
             <Link
               key={shape.name}
-              href={shape.href}
+              href={`/rings?shape=${encodeURIComponent(shape.name.toLowerCase())}`}
               className="flex-none w-28 md:w-24 lg:w-28 xl:w-32 group flex flex-col items-center justify-between p-4 hover:border-primary-custom/30 rounded-lg transition-all duration-500 ease-out hover:-translate-y-2 snap-center cursor-pointer "
             >
               <div className="relative w-20 h-20 md:w-16 md:h-16 lg:w-20 lg:h-20 flex items-center justify-center overflow-hidden">

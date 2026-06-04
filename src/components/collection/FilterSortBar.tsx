@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from 'next/navigation';
 import {
   useFilterStore,
   type MetalFilter,
@@ -140,6 +141,21 @@ export default function FilterSortBar() {
 
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const filterRef = useRef<HTMLDivElement>(null);
+
+  const searchParams = useSearchParams();
+
+  // Pre-select shape from URL param on mount
+  useEffect(() => {
+    const param = searchParams.get('shape');
+    if (param) {
+      const shapeKey = param.toUpperCase();
+      // Ensure the param matches one of the defined shapes before setting
+      const valid = SHAPES.find((s) => s.id === shapeKey as any);
+      if (valid) {
+        setShape(shapeKey as any);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

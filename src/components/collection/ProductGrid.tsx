@@ -24,11 +24,11 @@ function ProductCard({ ring }: { ring: CatalogRing }) {
   const shapeLabel = mainDiamond ? mainDiamond.shape.charAt(0) + mainDiamond.shape.slice(1).toLowerCase().replace('_', ' ') : "";
 
   return (
-    <Link
+<Link
       href={`/rings/${ring.id}`}
-      className="group cursor-pointer flex flex-col h-full bg-white/40 hover:bg-white p-5 transition-colors duration-500 rounded-sm border border-outline-variant/5 hover:border-outline-variant/20 hover:editorial-shadow"
+      className="group cursor-pointer flex flex-col h-full bg-surface-container-lowest dark:bg-surface-container-highest hover:bg-surface-container-low dark:hover:bg-surface-container-highest p-5 transition-colors duration-500 rounded-sm border border-outline-variant/10 dark:border-outline-variant/20 hover:border-outline-variant/30 hover:editorial-shadow"
     >
-      <div className="relative aspect-[4/5] bg-surface-container-lowest overflow-hidden transition-all duration-700 ease-in-out">
+      <div className="relative aspect-[4/5] bg-surface-container-lowest dark:bg-surface-container-highest overflow-hidden transition-all duration-700 ease-in-out">
         {heroImage && (
           <img
             src={heroImage.url}
@@ -39,10 +39,10 @@ function ProductCard({ ring }: { ring: CatalogRing }) {
       </div>
 
       <div className="mt-6 flex flex-col flex-grow">
-        <h3 className="font-headline text-2xl text-on-background mb-1">
+        <h3 className="font-headline text-2xl text-on-background dark:text-on-surface mb-1">
           {ring.name}
         </h3>
-        <p className="font-body text-sm text-on-surface-variant/70 mb-5 flex-grow">
+        <p className="font-body text-sm text-on-surface-variant/70 dark:text-on-primary-variant mb-5 flex-grow">
           {styleLabel} · {shapeLabel}
         </p>
         <div className="flex justify-between items-center pt-4 border-t border-outline-variant/20">
