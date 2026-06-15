@@ -3,6 +3,7 @@ import CollectionHero from "@/components/collection/CollectionHero";
 import FilterSortBar from "@/components/collection/FilterSortBar";
 import ProductGrid from "@/components/collection/ProductGrid";
 import ConsultationCta from "@/components/collection/ConsultationCta";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Engagement Rings | ZEWD DIAMOND & JEWELRY",
@@ -14,7 +15,9 @@ export default function RingsPage() {
   return (
     <main className="pt-24">
       <CollectionHero />
-      <FilterSortBar />
+      <Suspense fallback={<div>Loading catalog...</div>}>
+        <FilterSortBar />
+      </Suspense>
       <ProductGrid />
       {/* <ConsultationCta /> */}
     </main>
